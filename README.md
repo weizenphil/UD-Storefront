@@ -67,17 +67,14 @@ Our database will be running on the default port 5432 and our webserver will be 
 
 ### (i) Dev Database
 #### In a terminal tab, create and run the database:
-1. switch to the postgres user 
-```bash
-su postgres
 ```
-2. start psql 
+1. start psql 
 ```bash
-psql postgres
+psql postgres -U postgres
 ```
-3. in psql run the following:
+2. in psql run the following:
 	 ```sql 
-	 CREATE USER shopping_user WITH PASSWORD 'password123';
+	 CREATE USER shopping_user WITH PASSWORD 'password1234';
 	 ```
 	 ```sql 
 	 CREATE DATABASE shopping;
@@ -88,7 +85,7 @@ psql postgres
 	 ```sql 
 	 GRANT ALL PRIVILEGES ON DATABASE shopping TO shopping_user;
 	 ```
-4. to test that it is working run ```\dt``` and it should output "No relations found."
+3. to test that it is working run ```\dt``` and it should output "No relations found."
 
 ### (ii) Test Database
 #### In a terminal tab, create and run the database:
@@ -109,32 +106,6 @@ psql postgres
 3. to test that it is working run ```\dt``` and it should output "No relations found."
 
 ## (ii) Now you need to install the dependencies for the project.
-### Node Version
-Node version 16 or up is required. If not preseent follow the following instructions
-
-Run 
-```bash
-npm install -g n
-```
-```bash
-n 16
-```
-```bash
-PATH="$PATH"
-```
-```bash
-node -v
-```
-Version should be 16 and if not open another terminal or refresh your current terminal
-
-
-### NPM Version
-NPM version 9 or up is required. If not preseent follow the following instructions
-
-Run 
-```bash
-npm install -g npm@latest
-```
 
 ### Set up the dependencies
 
@@ -152,37 +123,6 @@ npm run lint
 
 ```bash
 npm run format
-```
-
-### Install DB Migrate
-Make sure you exit psql and run this command 
-```bash
-npm install -g db-migrate
-```
-
-```bash
-npm install -g db-migrate-pg
-```
-
-### (iv) Add environment variables
-1. Create the .env file in the home directory and add the below details:
-```env
-#POSTGRES Database
-POSTGRES_HOST=127.0.0.1
-POSTGRES_DATABASE=shopping
-POSTGRES_USER=shopping_user
-POSTGRES_PASSWORD=password123
-
-#Test Database
-POSTGRES_TEST_DB=shopping_test
-
-#environment
-ENV=test
-
-#Secrets
-BCRYPT_PASSWORD=jgkt-@$^^&
-SALT_ROUNDS=10
-TOKEN_SECRET=fdfd.=346565jgkt-@$^^&9
 ```
 
 ### (v) Run DB Migrate on Dev Database
