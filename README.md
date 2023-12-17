@@ -58,55 +58,6 @@ Before submitting your project, spin it up and test each endpoint. If each one r
 
 # Solution
 
-## Project setup
-
-### Ports
-Our database will be running on the default port 5432 and our webserver will be ruunig on port 3000
-
-## 1. DB Creation and Migrations
-
-### (i) Dev Database
-#### In a terminal tab, create and run the database:
-```
-1. start psql 
-```bash
-psql postgres -U postgres
-```
-2. in psql run the following:
-	 ```sql 
-	 CREATE USER shopping_user WITH PASSWORD 'password1234';
-	 ```
-	 ```sql 
-	 CREATE DATABASE shopping;
-	 ```
-	 ```sql 
-	 \c shopping
-	 ```
-	 ```sql 
-	 GRANT ALL PRIVILEGES ON DATABASE shopping TO shopping_user;
-	 ```
-3. to test that it is working run ```\dt``` and it should output "No relations found."
-
-### (ii) Test Database
-#### In a terminal tab, create and run the database:
-1. switch to the postgres database 
-```bash
-\c postgres
-```
-2. run the following:
-	 ```sql 
-	 CREATE DATABASE shopping_test;
-	 ```
-	 ```sql 
-	 \c shopping_test
-	 ```
-	 ```sql 
-	 GRANT ALL PRIVILEGES ON DATABASE shopping_test TO shopping_user;
-	 ```
-3. to test that it is working run ```\dt``` and it should output "No relations found."
-
-## (ii) Now you need to install the dependencies for the project.
-
 ### Set up the dependencies
 
 ```bash
