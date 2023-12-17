@@ -1,12 +1,12 @@
 import app from '../../server'
 import dotenv from 'dotenv'
 import request from 'supertest'
-import { SitemapQueries } from '../sitemap'
+import { DashboardQueries } from '../dashboard'
 import { OrderStore } from '../../models/orders'
 
 dotenv.config()
 
-const store = new SitemapQueries()
+const store = new DashboardQueries()
 const orderStore = new OrderStore()
 
 describe('4. Unit testing the Dasboard Models', () => {

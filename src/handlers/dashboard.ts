@@ -1,8 +1,8 @@
 import { Request, Response, Application } from 'express'
-import { SitemapQueries } from '../services/sitemap'
+import { DashboardQueries } from '../services/dashboard'
 import verifyAuthToken from '../utilities/auth'
 
-const sitemap = new SitemapQueries()
+const sitemap = new DashboardQueries()
 
 const currentOrderByUser = async (req: Request, res: Response) => {
   try {

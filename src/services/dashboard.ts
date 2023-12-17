@@ -1,7 +1,7 @@
 import Client from '../database'
 import { Order } from '../models/orders'
 
-export class SitemapQueries {
+export class DashboardQueries {
   async currentOrderByUser(id: string): Promise<Order> {
     try {
       const sql = `SELECT name, status, quantity, price 
