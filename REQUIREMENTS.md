@@ -5,33 +5,48 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 ## API Endpoints
 #### Products
-- Index 
-- Show
-- Create [token required]
-- [OPTIONAL] Top 5 most popular products 
-- [OPTIONAL] Products by category (args: product category)
+- Index: './products/' [GET]
+- Show (args: product id): './products/:id' [GET]
+- Create (args: Product) [token required]: './products/' [POST]
 
 #### Users
-- Index [token required]
-- Show [token required]
-- Create N[token required]
+- Index [token required]: './users' [GET]
+- Show (args: id) [token required]: './users/:id' [GET]
+- Create (args: User)[token required]: '/users' [POST]
 
 #### Orders
-- Current Order by user (args: user id)[token required]
-- [OPTIONAL] Completed Orders by user (args: user id)[token required]
+- Current Order by user (args: user id)[token required]: './orders/:userId/orders' [GET]
 
 ## Data Shapes
 #### Product
 -  id
 - name
 - price
-- [OPTIONAL] category
+
+Table: Product (id:serial[primary key], name:varchar(100)[not null], price:numeric[not null])
+
+CREATE TABLE products (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    price INTEGER NOT NULL
+)
 
 #### User
 - id
 - firstName
 - lastName
 - password
+- added: username
+
+Table: User (id:serial[primary key], firstname: varchar (50)[not null], lastname:varchar(50)[not null], password:varchar(100)[not null], username: varchar(100)[NOT null])
+
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    password VARCHAR(100) NOT NULL,
+    firstname VARCHAR(50) NOT NULL,
+    lastname VARCHAR(50) NOT NULL,
+    username VARCHAR(100) NOT NULL
+)
 
 #### Orders
 - id
@@ -40,3 +55,24 @@ These are the notes from a meeting with the frontend developer that describe wha
 - user_id
 - status of order (active or complete)
 
+Table: Orders (id:serial[primary key], product_id:integer(foreign key to products table), quantity:integer[default 1], user_id:integer(foreign key to users table), status:enum(active, complete)[not null])
+
+CREATE TABLE orders (
+    id SERIAL PRIMARY KEY,
+    status VARCHAR(100),
+    user_id BIGINT REFERENCES users(id)
+)
+
+
+Table: Order Product (
+  order_id: integer(not null) REFERENCES orders (id),
+  product_id: integer(not null) REFERENCES products (id),
+  quantity: integer(not null)
+)
+
+CREATE TABLE order_products (
+    id SERIAL PRIMARY KEY,
+    quantity INTEGER,
+    order_ID BIGINT REFERENCES orders(id),
+    product_id BIGINT REFERENCES products(id)
+)

@@ -21,7 +21,7 @@ In this repo there is a `REQUIREMENTS.md` document which outlines what this API 
 
 Your first task is to read the requirements and update the document with the following:
 - Determine the RESTful route for each endpoint listed. Add the RESTful route and HTTP verb to the document so that the frontend developer can begin to build their fetch requests.    
-**Example**: A SHOW route: 'blogs/:id' [GET] 
+**Example**: A SHOW route: 'blogs/:id' [GET]
 
 - Design the Postgres database tables based off the data shape requirements. Add to the requirements document the database tables and columns being sure to mark foreign keys.   
 **Example**: You can format this however you like but these types of information should be provided
@@ -52,3 +52,153 @@ Add JWT functionality as shown in the course. Make sure that JWTs are required f
 Before submitting, make sure that your project is complete with a `README.md`. Your `README.md` must include instructions for setting up and running your project including how you setup, run, and connect to your database. 
 
 Before submitting your project, spin it up and test each endpoint. If each one responds with data that matches the data shapes from the `REQUIREMENTS.md`, it is ready for submission!
+
+
+
+
+# Solution
+
+## Project setup
+
+### Ports
+Our database will be running on the default port 5432 and our webserver will be ruunig on port 3000
+
+## 1. DB Creation and Migrations
+
+### (i) Dev Database
+#### In a terminal tab, create and run the database:
+1. switch to the postgres user 
+```bash
+su postgres
+```
+2. start psql 
+```bash
+psql postgres
+```
+3. in psql run the following:
+	 ```sql 
+	 CREATE USER shopping_user WITH PASSWORD 'password123';
+	 ```
+	 ```sql 
+	 CREATE DATABASE shopping;
+	 ```
+	 ```sql 
+	 \c shopping
+	 ```
+	 ```sql 
+	 GRANT ALL PRIVILEGES ON DATABASE shopping TO shopping_user;
+	 ```
+4. to test that it is working run ```\dt``` and it should output "No relations found."
+
+### (ii) Test Database
+#### In a terminal tab, create and run the database:
+1. switch to the postgres database 
+```bash
+\c postgres
+```
+2. run the following:
+	 ```sql 
+	 CREATE DATABASE shopping_test;
+	 ```
+	 ```sql 
+	 \c shopping_test
+	 ```
+	 ```sql 
+	 GRANT ALL PRIVILEGES ON DATABASE shopping_test TO shopping_user;
+	 ```
+3. to test that it is working run ```\dt``` and it should output "No relations found."
+
+## (ii) Now you need to install the dependencies for the project.
+### Node Version
+Node version 16 or up is required. If not preseent follow the following instructions
+
+Run 
+```bash
+npm install -g n
+```
+```bash
+n 16
+```
+```bash
+PATH="$PATH"
+```
+```bash
+node -v
+```
+Version should be 16 and if not open another terminal or refresh your current terminal
+
+
+### NPM Version
+NPM version 9 or up is required. If not preseent follow the following instructions
+
+Run 
+```bash
+npm install -g npm@latest
+```
+
+### Set up the dependencies
+
+```bash
+npm install
+```
+
+### Lint the code using Eslint
+
+```bash
+npm run lint
+```
+
+### Format the code using Prettier
+
+```bash
+npm run format
+```
+
+### Install DB Migrate
+Make sure you exit psql and run this command 
+```bash
+npm install -g db-migrate
+```
+
+```bash
+npm install -g db-migrate-pg
+```
+
+### (iv) Add environment variables
+1. Create the .env file in the home directory and add the below details:
+```env
+#POSTGRES Database
+POSTGRES_HOST=127.0.0.1
+POSTGRES_DATABASE=shopping
+POSTGRES_USER=shopping_user
+POSTGRES_PASSWORD=password123
+
+#Test Database
+POSTGRES_TEST_DB=shopping_test
+
+#environment
+ENV=test
+
+#Secrets
+BCRYPT_PASSWORD=jgkt-@$^^&
+SALT_ROUNDS=10
+TOKEN_SECRET=fdfd.=346565jgkt-@$^^&9
+```
+
+### (v) Run DB Migrate on Dev Database
+Run the following command 
+```bash
+db-migrate up
+```
+
+### (vi) Run Unit Tests
+Run the following command 
+```
+npm run test
+```
+
+### (vii) Startup the server
+Run the following command 
+```
+npm run start
+```
