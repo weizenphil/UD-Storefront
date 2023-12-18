@@ -58,6 +58,69 @@ Before submitting your project, spin it up and test each endpoint. If each one r
 
 # Solution
 
+## Project setup
+
+### Ports
+The webserver will be running on port 3000, the database on the default port 5432.
+
+## DB Creation and Migrations
+
+### Dev Database
+
+#### In a terminal tab, create and run the database:
+
+1. switch to the postgres user 
+```bash
+su postgres
+```
+2. start psql 
+```bash
+psql postgres
+```
+3. in psql run the following:
+	 ```sql 
+	 CREATE USER shopping_user WITH PASSWORD 'password1234';
+	 ```
+	 ```sql 
+	 CREATE DATABASE shopping;
+	 ```
+	 ```sql 
+	 \c shopping
+	 ```
+	 ```sql 
+	 GRANT ALL PRIVILEGES ON DATABASE shopping TO shopping_user;
+	 ```
+4. to test that it is working run ```\dt``` and it should output "No relations found."
+
+### Test Database
+
+#### In a terminal tab, create and run the database:
+1. switch to the postgres database 
+```bash
+\c postgres
+```
+2. run the following:
+	 ```sql 
+	 CREATE DATABASE shopping_test;
+	 ```
+	 ```sql 
+	 \c shopping_test
+	 ```
+	 ```sql 
+	 GRANT ALL PRIVILEGES ON DATABASE shopping_test TO shopping_user;
+	 ```
+3. to test that it is working run ```\dt``` and it should output "No relations found."
+
+## Installation of dependencies
+
+### NPM Version
+NPM version 9 or up is required. Check if the right version is installed and install it if necessary
+
+Run 
+```bash
+npm install -g npm@latest
+```
+
 ### Set up the dependencies
 
 ```bash
@@ -76,19 +139,51 @@ npm run lint
 npm run format
 ```
 
-### (v) Run DB Migrate on Dev Database
+### Install DB Migrate
+Make sure you exit psql and run this command 
+```bash
+npm install -g db-migrate
+```
+
+```bash
+npm install -g db-migrate-pg
+```
+
+### Add environment variables
+1. Create the .env file in the home directory and add the below details:
+
+```env
+#POSTGRES Database
+POSTGRES_HOST=127.0.0.1
+POSTGRES_DATABASE=shopping
+POSTGRES_USER=shopping_user
+POSTGRES_PASSWORD=password1234
+
+#Test Database
+POSTGRES_TEST_DB=shopping_test
+
+#environment
+ENV=test
+
+#Secrets
+BCRYPT_PASSWORD=speak-friend-and-enter
+SALT_ROUNDS=10
+TOKEN_SECRET=alohomora123!
+```
+
+### Run DB Migrate on Dev Database
 Run the following command 
 ```bash
 db-migrate up
 ```
 
-### (vi) Run Unit Tests
+### Run Unit Tests
 Run the following command 
 ```
 npm run test
 ```
 
-### (vii) Startup the server
+### Startup the server
 Run the following command 
 ```
 npm run start

@@ -5,7 +5,7 @@ import morgan from 'morgan'
 import userRoutes from './handlers/users'
 import productRoutes from './handlers/products'
 import orderRoutes from './handlers/orders'
-import sitemapRoutes from './handlers/sitemap'
+import sitemapRoutes from './handlers/dashboard'
 
 const app: express.Application = express()
 

@@ -14,8 +14,8 @@ const currentOrderByUser = async (req: Request, res: Response) => {
   }
 }
 
-const sitemapRoutes = (app: Application) => {
+const dashboardRoutes = (app: Application) => {
   app.get('/user/:userId/orders', verifyAuthToken, currentOrderByUser)
 }
 
-export default sitemapRoutes
+export default dashboardRoutes
