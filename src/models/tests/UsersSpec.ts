@@ -21,34 +21,34 @@ describe('1. Unit testing the user model', () => {
   
     it('1.4 create method should add a user', async function (): Promise<void> {
       const result = await store.create({
-        username: 'wmuza',
+        username: 'phha',
         password: process.env.POSTGRES_PASSWORD,
-        firstname: 'Wilbert',
-        lastname: 'Muza'
+        firstname: 'Phil',
+        lastname: 'Hallo'
       })
   
-      expect(result.username).toEqual('wmuza')
+      expect(result.username).toEqual('phha')
     })
   
     it('1.5 index method should return a list of users', async function (): Promise<void> {
       const result = await store.index()
   
-      expect(result[0].firstname).toEqual('Wilbert')
+      expect(result[0].firstname).toEqual('Phil')
     })
   
     it('1.6 show method should return the correct user', async function (): Promise<void> {
       const result = await store.show('1')
   
-      expect(result.lastname).toEqual('Muza')
+      expect(result.lastname).toEqual('Hallo')
     })
   
     it('1.7 authenticate method should be true', async function (): Promise<void> {
       const result = await store.authenticate({
-        username: 'wmuza',
+        username: 'phha',
         password: process.env.POSTGRES_PASSWORD
       })
   
-      expect(result.username).toEqual('wmuza')
+      expect(result.username).toEqual('phha')
     })
   })
   
@@ -66,7 +66,7 @@ describe('1. Unit testing the user model', () => {
       //Test the endpoint and see if it returns status code of 200
       const response = await request(app)
         .post('/authenticate')
-        .send({ username: 'wmuza', password: process.env.POSTGRES_PASSWORD })
+        .send({ username: 'phha', password: process.env.POSTGRES_PASSWORD })
         .set('Accept', 'application/json')
   
       userToken = response.body.token
@@ -80,10 +80,10 @@ describe('1. Unit testing the user model', () => {
       const response = await request(app)
         .post('/users')
         .send({
-          username: 'wmuza',
+          username: 'phha',
           password: process.env.POSTGRES_PASSWORD,
-          firstname: 'Wilbert',
-          lastname: 'Muza'
+          firstname: 'Phil',
+          lastname: 'Hallo'
         })
         .set('Authorization', `Basic ${userToken}`)
   
