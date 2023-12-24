@@ -28,10 +28,10 @@ const show = async (req: Request, res: Response) => {
 
 const create = async (req: Request, res: Response) => {
   const user: User = {
-    username: req.body.username,
-    password: req.body.password,
-    firstname: req.body.firstname,
-    lastname: req.body.lastname
+    username: req.body.username as string,
+    password: req.body.password as string,
+    firstname: req.body.firstname as string,
+    lastname: req.body.lastname as string
   }
   try {
     const user_result = await store.create(user)

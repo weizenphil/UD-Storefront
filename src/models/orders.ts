@@ -1,13 +1,13 @@
 import client from "../database";
 
 export type Order = {
-    id?: string
+    id?: number
     status: string
     user_id: number
 }
 
 export type OrderProducts = {
-    id?: string
+    id?: number
     quantity: number
     order_id: number
     product_id: number
@@ -29,7 +29,7 @@ export class OrderStore {
         }
     }
 
-    async show(id: string): Promise<Order> {
+    async show(id: number): Promise<Order> {
         try {
             const sql = 'SELECT * FROM orders WHERE id=($1)'
 
@@ -68,7 +68,7 @@ export class OrderStore {
         productId: number
     ): Promise<OrderProducts> {
         try {
-            const order = await this.show(orderId as unknown as string)
+            const order = await this.show(orderId as unknown as number)
 
             if (order.status == 'closed')
                 throw new Error(`Cannot add product ${productId} to a closed order ${OrderStore}`)

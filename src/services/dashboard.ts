@@ -2,7 +2,7 @@ import Client from '../database'
 import { Order } from '../models/orders'
 
 export class DashboardQueries {
-  async currentOrderByUser(id: string): Promise<Order> {
+  async currentOrderByUser(id: number): Promise<Order> {
     try {
       const sql = `SELECT name, status, quantity, price 
          FROM orders 

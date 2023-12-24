@@ -6,10 +6,10 @@ dotenv.config()
 
 export type User = {
     id?: string
-    password?: string
+    password: string
     firstname?: string
     lastname?: string
-    username?: string
+    username: string
 }
 
 export class UserStore {

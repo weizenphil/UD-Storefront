@@ -16,7 +16,7 @@ const index = async (_req: Request, res: Response) => {
 
 const show = async (req: Request, res: Response) => {
   try {
-    const order = await store.show(req.params?.id)
+    const order = await store.show(req.params?.id as unknown as number)
     res.json(order)
   } catch (err) {
     res.status(400)
@@ -26,8 +26,8 @@ const show = async (req: Request, res: Response) => {
 
 const create = async (req: Request, res: Response) => {
   const order: Order = {
-    status: req.body.status,
-    user_id: req.body.user_id
+    status: req.body.status as unknown as string,
+    user_id: req.body.user_id as unknown as number
   }
 
   try {
@@ -41,9 +41,9 @@ const create = async (req: Request, res: Response) => {
 
 const addProduct = async (req: Request, res: Response) => {
   const order: OrderProducts = {
-    quantity: parseInt(req.body.quantity),
-    order_id: parseInt(req.params.id),
-    product_id: parseInt(req.body.product_id)
+    quantity: req.body.quantity as unknown as number,
+    order_id: req.params.id as unknown as number,
+    product_id: req.body.product_id as unknown as number
   }
 
   try {
@@ -61,9 +61,9 @@ const addProduct = async (req: Request, res: Response) => {
 
 const update = async (req: Request, res: Response) => {
   const order: Order = {
-    id: req.body.id,
-    status: req.body.status,
-    user_id: req.body.user_id
+    id: req.body.id as unknown as number,
+    status: req.body.status as unknown as string,
+    user_id: req.body.user_id as unknown as number,
   }
 
   try {

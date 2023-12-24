@@ -6,7 +6,7 @@ const sitemap = new DashboardQueries()
 
 const currentOrderByUser = async (req: Request, res: Response) => {
   try {
-    const order = await sitemap.currentOrderByUser(req.params?.userId)
+    const order = await sitemap.currentOrderByUser(req.params?.userId as unknown as number)
     res.json(order)
   } catch (err) {
     res.status(400)
